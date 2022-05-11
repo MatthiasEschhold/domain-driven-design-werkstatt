@@ -1,1 +1,1 @@
-# domain-driven-design-werkstatt
+# Domain-driven Design Werkstatt
