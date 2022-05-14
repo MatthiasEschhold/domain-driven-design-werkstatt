@@ -1,0 +1,11 @@
+[[section-quality-scenarios]]
+== Qualitätsanforderungen
+
+.Weiterführende Informationen
+Siehe https://docs.arc42.org/section-10/[Qualitätsanforderungen] in der online-Dokumentation (auf Englisch!).
+
+=== Qualitätsbaum
+
+=== Qualitätsszenarien
+
+

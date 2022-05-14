@@ -1,0 +1,214 @@
+[[section-solution-strategy]]
+== Lösungsstrategie
+
+IMPORTANT: Die Bennung von Package mit "." dient zur Vereinfachung des Diagramms. Durch den Punkt
+wird ein Subpackage ausgedrückt ("package.subpackage").
+
+NOTE: Die Ansätze für Klassen-Stereotypen werden in der Zukunft detallierter bechrieben.
+Hinsichtlich der Clean Architecture wird für mehr Details auf die https://github.com/MatthiasEschhold/clean-architecture-and-flexibility-patterns[Artikelserie Flexibile Anwendungsarchitektur mit der Clean Architecture]
+verwiesen.
+
+=== Die Paketstruktur in der hexagonale Architektur
+
+Das folgende Diagramm zeigt die Paketstrukturierung eines Bounded Context mit der Hexagonal Architecture.
+Die Architektur wird ausdrucksstark abgebildet.
+Dies ist sichtbar anhand der der Unterscheidung "in" und "out" innerhalb des Adapter- bzw.
+Port-Package.
+
+[plantuml,target=package-hexagonal-architecture,format=png]
+....
+
+package "bounded context" as dc {
+
+    package adapter.in
+    package adapter.out
+
+    package "application" as app {
+
+        package port.in
+        package port.out
+
+        package "domain" as domain {
+            package "aggregate" as aggDomain1 {
+                package service
+                package model
+                service --> model
+            }
+        }
+
+        package applicationservice
+    }
+
+
+    port.out <|-- adapter.out
+
+    port.in <|-- applicationservice
+
+    applicationservice --> port.out
+
+    adapter.in --> port.in
+    applicationservice --> service
+}
+....
+
+=== Klassen-Stereotypen in der Hexagonal Architecture
+
+Folgendes Modell zeigt die Klassen-Stereotypen in der hexagonalen Architektur.
+Die Grundlage sind die Building Blocks des taktischen Domain-driven Design.
+Eingehend sind die Web Adapter Controller und EventListener dargestellt.
+Als Beispiel für ausgehende Adapter, wird die Anbindung einer Datenbank durch den Klassen-Stereotyp Repository dargestellt.
+
+[plantuml,target=class-stereotyes-hexagonal-architeture,format=png]
+....
+
+class Controller
+class Resource
+class "Mapper" as resourceMapper
+Controller --> Resource
+Controller --> resourceMapper
+resourceMapper --> Resource
+
+class EventListener
+class Event
+class "Mapper" as eventMapper
+EventListener --> Event
+eventMapper --> Event
+EventListener --> eventMapper
+
+interface InputPort <<port>>
+interface OutputPort <<port>>
+
+class ApplicationService
+class Aggregate
+class Entity
+class ValueObject
+class Factory
+class DomainService
+
+class Repository
+class DbEntity
+class "Mapper" as dbEntityMapper
+Repository --> DbEntity
+dbEntityMapper --> DbEntity
+Repository --> dbEntityMapper
+
+Aggregate --> Entity
+Aggregate --> ValueObject
+Entity --> ValueObject
+DomainService --> Aggregate
+DomainService --> Factory
+ApplicationService --> DomainService
+ApplicationService --> Aggregate
+ApplicationService --> Factory
+Factory --> Aggregate
+ApplicationService --> OutputPort
+
+InputPort <|-- ApplicationService
+Controller  --> InputPort
+EventListener --> InputPort
+OutputPort <|-- Repository
+
+dbEntityMapper --> Aggregate
+resourceMapper --> Aggregate
+eventMapper  --> Aggregate
+....
+
+=== Die Paketstruktur in der Clean Architecture
+
+Das folgende Diagramm zeigt die Paketstrukturierung eines Bounded Context gemäß der Clean Architecture.
+Die Architektur wird ausdrucksstark abgebildet.
+Dies ist sichtbar anhand der der Unterscheidung "in" und "out" innerhalb
+des Adapter- bzw. UseCase-Package.
+
+[plantuml,target=clean-architecture-packages,format=png]
+....
+
+package "bounded context" as dc {
+
+    package "aggregate" as aggregateOne {
+
+        package adapter.in
+        package adapter.out
+
+        package usecase.in
+        package usecase.out
+
+        package "domain" as domain {
+            package service
+            package model
+        }
+
+        service --> model
+        usecase.in <|-- service
+        service -->  usecase.out
+
+        adapter.in --> usecase.in
+        usecase.out <|-- adapter.out
+    }
+}
+....
+
+=== Klassen-Stereotypen in der Clean Architecture
+
+Folgendes Modell zeigt die Klassen-Stereotypen in der Clean Architecture.
+Die Grundlage sind die Building Blocks des taktischen Domain-driven Design.
+Eingehend sind die Web Adapter Controller und EventListener dargestellt.
+Als Beispiel für ausgehende Adapter, wird die Anbindung einer Datenbank
+durch den Klassen-Stereotyp Repository dargestellt.
+
+[plantuml,target=stereoyteps-clean-architeccture,format=png]
+....
+
+class Controller
+class Resource
+class "Mapper" as resourceMapper
+Controller --> Resource
+Controller --> resourceMapper
+resourceMapper --> Resource
+
+class EventListener
+class Event
+class "Mapper" as eventMapper
+EventListener --> Event
+eventMapper --> Event
+EventListener --> eventMapper
+
+interface "UseCase" as InputPort <<input port>>
+interface "UseCase" as OutputPort <<output port>>
+
+class Aggregate
+class Entity
+class ValueObject
+class Factory
+class DomainService
+
+class Repository
+class DbEntity
+class "Mapper" as dbEntityMapper
+Repository --> DbEntity
+dbEntityMapper --> DbEntity
+Repository --> dbEntityMapper
+
+Aggregate --> Entity
+Aggregate --> ValueObject
+Entity --> ValueObject
+DomainService --> Aggregate
+DomainService --> Aggregate
+DomainService --> Factory
+Factory --> Aggregate
+DomainService --> OutputPort
+
+InputPort <|-- DomainService
+Controller  --> InputPort
+EventListener --> InputPort
+OutputPort <|-- Repository
+
+dbEntityMapper --> Aggregate
+resourceMapper --> Aggregate
+eventMapper  --> Aggregate
+....
+
+=== Verwendung von Domain Primitives
+
+NOTE: Für die Realisierung der Invariantenprüfung wird in der Ausbaustufe der Demo die Library https://github.com/domain-primitives/domain-primitives-java[Domain Primitives Java]
+eingesetzt. Die Library unterstützt  Implementierung von Validierungsprüfungen zu verschlanken.

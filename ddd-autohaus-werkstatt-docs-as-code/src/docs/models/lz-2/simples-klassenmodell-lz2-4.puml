@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+rectangle "Kunde:in" as kunde
+rectangle "Fahrzeug" as fahrzeug
+rectangle "Termin" as termin
+rectangle "Auftrag" as auftrag
+rectangle "Mitarbeiter:in" as mitarbeiter
+rectangle "Dienstleistung" as dienstleistung
+
+kunde --> fahrzeug
+termin --> fahrzeug
+termin --> kunde
+auftrag --> fahrzeug
+auftrag --> kunde
+termin --> auftrag
+auftrag --> mitarbeiter
+auftrag -->"*" dienstleistung
+
+@enduml

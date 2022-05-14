@@ -1,0 +1,37 @@
+@startuml
+
+package "Werkstattauftrag" as werkstattauftragModul <<aggregate>> {
+
+    class WerkstattauftragService
+    class WerkstattauftragRepository
+    class WerkstattauftragFactory
+
+    package "domain.model" as domainModel {
+        class Werkstattauftrag <<aggregate root>>
+        class Fahrzeugkennzeichen <<value object>>
+        class Bearbeiter <<value object>>
+        class Werkstattauftragstatus <<value object>>
+        class Auftragsposition <<entity>>
+        class Werkstattservice <<entity>>
+        class Material <<value object>>
+        class MaterialRef <<value object>>
+
+        Werkstattauftrag --> Fahrzeugkennzeichen
+        Werkstattauftrag --> Bearbeiter
+        Werkstattauftrag --> Werkstattauftragstatus
+        Werkstattauftrag --> Auftragsposition
+        Auftragsposition --> Werkstattservice
+        Werkstattservice --> Material
+        Material --> MaterialRef
+
+    }
+
+    WerkstattauftragService --> WerkstattauftragRepository
+    WerkstattauftragService --> Werkstattauftrag
+    WerkstattauftragService --> WerkstattauftragFactory
+    WerkstattauftragFactory -- Werkstattauftrag
+    WerkstattauftragRepository --> Werkstattauftrag
+
+}
+
+@enduml

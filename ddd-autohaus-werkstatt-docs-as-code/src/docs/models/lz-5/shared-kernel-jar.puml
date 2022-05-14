@@ -1,0 +1,23 @@
+@startuml
+
+package "Lagermanagement" as boundedContextLagermanagement <<bounded  context>> {
+    rectangle "Lagerplatz" as lagerplatz
+    rectangle "Lagerort" as lagerort
+    lagerort --> lagerplatz
+}
+
+package "Orignalteile" as boundedContextOriginal <<bounded context>> {
+    rectangle "Originalteil" as originalteil
+    rectangle LieferantenId as lieferantenId
+    originalteil  --> lieferantenId
+}
+
+package "shared kernel" as sk <<lib>> {
+    rectangle "OriginalteileId" as originalteileId
+
+}
+
+originalteil --> originalteileId
+lagerplatz --> originalteileId
+
+@enduml

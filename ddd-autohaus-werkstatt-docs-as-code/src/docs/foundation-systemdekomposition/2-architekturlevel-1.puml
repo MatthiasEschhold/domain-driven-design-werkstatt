@@ -1,0 +1,11 @@
+@startuml
+
+component Auftrag <<component>>
+component Kunde <<component>>
+component Fahrzeug <<component>>
+
+Kunde --> Fahrzeug
+Auftrag --> Kunde
+Auftrag --> Fahrzeug
+
+@enduml

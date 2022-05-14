@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:/werkstatt-db
+    username: kontext
+    password: werkstatt
+    driverClassName: org.h2.Driver
+    jpa:
+      spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    hibernate.naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
+    hibernate.ddl-auto: create-update
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+      settings.trace: false
+    spring.h2.console.settings.web-allow-others: false

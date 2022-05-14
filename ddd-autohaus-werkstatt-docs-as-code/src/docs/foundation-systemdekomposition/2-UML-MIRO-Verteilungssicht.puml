@@ -1,0 +1,33 @@
+@startuml
+
+node Loadbalancer {
+}
+
+database "DB" as db1
+
+node "LinuxServer" as server1 {
+  node "Tomcat" as tommy1 {
+      artifact "wv.jar" as jar1
+      file "app config" as config1
+  }
+  file "log" as log1
+  jar1 --> log1
+  jar1 --> config1
+}
+
+node "LinuxServer" as server2 {
+  node "Tomcat" as tommy2 {
+      artifact "wv.jar" as jar2
+      file "app config" as config2
+  }
+  file "log" as log2
+  jar2 --> log2
+  jar2 --> config2
+}
+
+jar1 --> db1 : jdbc
+jar2 --> db1 : jdbc
+Loadbalancer --> jar2
+Loadbalancer --> jar1
+
+@enduml

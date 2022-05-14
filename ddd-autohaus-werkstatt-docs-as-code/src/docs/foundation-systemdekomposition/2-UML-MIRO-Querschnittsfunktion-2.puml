@@ -1,0 +1,31 @@
+@startuml
+
+actor "Kund:in" as Kunde
+actor "Fachadministrator:in" as SachbearbeiterAdmin
+actor "Sachbearbeiter:in" as Sachbearbeiter
+
+node WerkstattFrontend
+
+node Loadbalancer {
+  node Router
+}
+
+node "LinuxServer" as server1 {
+  node "Werkstattverwaltung" as wv1
+  }
+
+node "LinuxServer" as server2 {
+  node "Werkstattverwaltung" as wv2
+  }
+
+Kunde --> WerkstattFrontend
+SachbearbeiterAdmin --> WerkstattFrontend
+Sachbearbeiter --> WerkstattFrontend
+WerkstattFrontend --> Router
+Router --> wv1
+Router --> wv2
+
+note left of Loadbalancer: Skalierung, Ausfallsicherheit
+note right of WerkstattFrontend: Frameworks, Tools, Programmiersprache
+
+@enduml

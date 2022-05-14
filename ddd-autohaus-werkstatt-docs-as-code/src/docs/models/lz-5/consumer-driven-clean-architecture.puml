@@ -1,0 +1,55 @@
+@startuml
+
+package "Web Adapter" as adapter1 {
+    class "Controller" as con1
+    class "Resource" as resource1
+    class "Mapper" as mapper1
+    con1 --> resource1
+    con1 --> mapper1
+}
+
+package "Web Adapter" as adapter2 {
+    class "Controller" as con2
+    class "Resource" as resource2
+    class "Mapper" as mapper2
+    con2 --> resource2
+    con2 --> mapper2
+}
+
+package "UseCase In" as useCaseIn {
+    interface "WerkstattauftragLesen" as useCase1
+    interface "WerkstattauftragAnlegen" as useCase2
+    interface "WerkstattauftragArchivieren" as useCase3
+}
+
+package "Domain" as domain {
+    class "WerkstattauftragCommandService" as service1
+    class "WerktsattauftragQueryService" as service2
+
+    class "Werkstattauftrag" as Aggregate
+    class "Auftragsposition" as Entity
+    class "Werkstattauftragsnummer" as ValueObject
+
+    class Factory
+    class Builder
+
+    service1 --> Aggregate
+    service2 --> Aggregate
+    Aggregate --> Entity
+    Aggregate --> ValueObject
+    service1 --> Factory
+    service2 --> Builder
+}
+
+
+note bottom of domain: Factory, Builder, Application Service,\nRich Domain Model für mehr Flexibilität
+
+con1 --> useCase1
+con2 --> useCase2
+con2 --> useCase3
+
+useCase1 <|.. service1
+useCase2 <|.. service2
+useCase3 <|.. service2
+
+@enduml

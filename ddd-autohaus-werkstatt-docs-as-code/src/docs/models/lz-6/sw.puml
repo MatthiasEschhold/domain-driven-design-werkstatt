@@ -1,0 +1,26 @@
+@startuml
+
+   package "Originalteile" as ot <<bounded context>> {
+        class "Originalteil" as aggregateOt <<aggregate>>
+        class "Teilenummer" as tn <<value object>>
+        class "Teilebezeichnung" as tb <<value object>>
+        class "Teilegruppe" as tg <<value object>>
+
+        aggregateOt --> tn
+        aggregateOt --> tb
+        aggregateOt --> tg
+
+   }
+
+   package "Fremdteile" as ft <<bounded context>> {
+           class "Fremdteil" as aggregateFt <<aggregate>>
+           class "Teilenummer" as tn1 <<value object>>
+           class "Teilebezeichnung" as tb1 <<value object>>
+           class "Teilegruppe" as tg1 <<value object>>
+
+           aggregateFt --> tn1
+           aggregateFt --> tb1
+           aggregateFt --> tg1
+
+      }
+@enduml

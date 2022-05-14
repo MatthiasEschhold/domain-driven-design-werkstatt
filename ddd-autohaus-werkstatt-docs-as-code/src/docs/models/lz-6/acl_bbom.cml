@@ -1,0 +1,16 @@
+ContextMap DDDSampleMap {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+    
+    contains Werkstattorganisation
+    contains Kunde
+    contains KundeLegacy
+
+	Werkstattorganisation [D,ACL]<-[U,OHS] Kunde
+    Werkstattorganisation [D,ACL]<-[U] KundeLegacy
+
+}
+
+BoundedContext Werkstattorganisation
+BoundedContext KundeLegacy
+BoundedContext Kunde

@@ -1,0 +1,25 @@
+@startuml
+
+actor "Consumer" as con1
+actor "Consumer" as con2
+
+
+
+component "Facade Context" as facade
+
+note left of facade: Higher-level Domain API
+
+component "Microservice" as service1
+component "Microservice" as service2
+component "Microservice" as service3
+
+note bottom of service2: Domain-focused
+
+facade --> service1
+facade --> service2
+facade --> service3
+
+con1 --> facade
+con2 --> facade
+
+@enduml

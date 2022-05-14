@@ -1,0 +1,36 @@
+ContextMap DDDSampleMap {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+    
+    contains Teilevertrieb
+    contains Lagermanagement
+    contains Fremdteile
+    contains Originalteile
+    contains Werkstattservice
+    contains Werkstattplan
+    contains Rechnungswesen
+    contains Kunde
+    contains Mitarbeiter
+
+	Werkstattplan [D,ACL]<-[U,OHS] Kunde
+    Werkstattplan [D,CF]<-[U,OHS] Mitarbeiter
+	Werkstattplan [D,CF]<-[U, OHS] Werkstattservice
+	Werkstattplan [D,ACL]<-[U, OHS, PL] Rechnungswesen
+    Werkstattplan [D,ACL]<-[U, OHS] Teilevertrieb
+
+    Teilevertrieb [SK]<->[SK] Originalteile
+    Teilevertrieb [SK]<->[SK] Fremdteile
+    
+    Originalteile [C]<-[S] Lagermanagement
+    Fremdteile [C]<-[S] Lagermanagement
+}
+
+BoundedContext Teilevertrieb
+BoundedContext Lagermanagement
+BoundedContext Fremdteile
+BoundedContext Originalteile
+BoundedContext Werkstattservice
+BoundedContext Werkstattplan
+BoundedContext Rechnungswesen
+BoundedContext Kunde
+BoundedContext Mitarbeiter

@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Fahrzeugdaten {
+   rectangle FahrzeugService
+   rectangle Fahrzeug
+   rectangle Kennzeichen
+
+   FahrzeugService --> Fahrzeug
+   Fahrzeug -->"1" Kennzeichen
+}
+
+package "Fahrzeuggutachten" as gutachtenPackage {
+    rectangle GutachtenService
+    rectangle Fahrzeuggutachten
+    rectangle Fahrzeugbewertung
+    rectangle Fahrzeugwert
+
+    GutachtenService --> Fahrzeuggutachten
+    Fahrzeuggutachten -->"*" Fahrzeugbewertung
+    Fahrzeugbewertung --> Fahrzeugwert
+}
+
+Fahrzeuggutachten -->"1" Fahrzeug
+
+@enduml

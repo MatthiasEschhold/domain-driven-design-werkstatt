@@ -1,0 +1,27 @@
+@startuml
+
+left to right direction
+
+actor "Sachbearbeiter:in" as s
+actor "Kund:in" as k
+
+package Werkstattverwaltung {
+  usecase "Auftrag anlegen" as UC1
+  usecase "Auftrag stornieren" as UC2
+  usecase "Fahrzeug anlegen" as UC3
+  usecase "Fahrzeug aktualisieren" as UC4
+  usecase "Kund:in anlegen" as UC5
+  usecase "Kund:in ändern" as UC6
+  usecase "Kund:in und Fahrzeug verknüpfen" as UC7
+}
+
+k --> UC6
+s --> UC1
+s --> UC2
+s --> UC3
+s --> UC4
+s --> UC5
+s --> UC6
+s --> UC7
+
+@enduml

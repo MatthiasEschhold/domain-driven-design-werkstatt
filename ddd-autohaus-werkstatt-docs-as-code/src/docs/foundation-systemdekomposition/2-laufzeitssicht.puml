@@ -1,0 +1,7 @@
+@startuml
+    Frontend -> Kunde: GetKundeById
+    Kunde --> Frontend: Kundendaten mit Kundenfahrzeugen
+    Frontend -> Frontend: SelectKundenfahrzeug
+    Frontend -> Fahrzeug: GetFahrzeugByKennzeichen
+    Fahrzeug --> Frontend: Fahrzeug
+@enduml

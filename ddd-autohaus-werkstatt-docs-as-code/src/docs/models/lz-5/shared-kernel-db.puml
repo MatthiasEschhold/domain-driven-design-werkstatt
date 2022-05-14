@@ -1,0 +1,19 @@
+@startuml
+
+rectangle "Lagermanagement" as boundedContextLagermanagement <<bounded  context>>>
+rectangle "Orignalteile" as boundedContextOriginal <<bounded context>>
+
+database "shared kernel" as sk {
+    rectangle Originalteil[Teilenummer] as originalteil {
+    }
+
+    rectangle Lieferant[LieferantenId] as lieferant {
+    }
+
+    originalteil  --> lieferant
+}
+
+boundedContextLagermanagement --> originalteil
+boundedContextOriginal --> originalteil
+
+@enduml

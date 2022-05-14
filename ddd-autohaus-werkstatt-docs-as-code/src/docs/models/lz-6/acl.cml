@@ -1,0 +1,19 @@
+ContextMap DDDSampleMap {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+    
+    contains Werkstattorganisation
+    contains Teilevertrieb
+    contains Kunde
+    contains Rechnungswesen
+
+	Werkstattorganisation [D,ACL]<-[U,OHS] Kunde
+	Werkstattorganisation [D,ACL]<-[U, OHS, PL] Rechnungswesen
+    Werkstattorganisation [D,ACL]<-[U, OHS] Teilevertrieb
+
+}
+
+BoundedContext Teilevertrieb
+BoundedContext Werkstattorganisation
+BoundedContext Rechnungswesen
+BoundedContext Kunde

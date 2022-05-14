@@ -1,0 +1,250 @@
+[[section-building-block-view]]
+== Bausteinsicht
+
+IMPORTANT: Die vollständige Abbildung der fachlichen Module ergibt
+sich durch die Paketstruktur in der Hexagonal bzw. Clean Architecture.
+Hier liegt der Fokus auf dem Domänenmodell abgebildet anhand
+von Aggregates, Entites und Value Objects.
+
+Aufbauend auf der Context Map aus dem Kapitel Systemkontextsicht, wird im folgenden die Subdomäne Werkstatt beschrieben.
+
+=== Whitebox Subdomäne Werkstatt
+
+[plantuml,target=bs-ebene1,format=png]
+....
+
+package "Werkstatt" as werkstatt <<subdomain>> {
+
+    package "Werkstattplanung" as werkstattplanung <<bounded context>> {
+
+    }
+
+    package "Werkstattservice" as werkstattservice <<bounded context>> {
+
+    }
+
+    werkstattplanung --> werkstattservice
+
+}
+....
+
+Enthaltene Blackbox Bausteine::
+
+[cols="1,2" options="header"]
+|===
+|Bounded Context |Beschreibung
+|Werkstattplanung|Organisation der Werkstattabläufe und Dienstleistungsprozesse der Werkstatt.
+|Werkstattservice|Planung des Dienstleistungsangebots gegenüber Privat- und Firmenkunden.
+|===
+
+
+=== Whitebox Bounded Context Werkstattplanung
+
+[plantuml,target=bs-ebene2_2,format=png]
+....
+
+package "Werkstattplanung" as werkstattplanung <<bounded context>> {
+
+    package "Werkstattplan" as werkstattplan <<aggregate>> {
+
+    }
+
+    package "Werkstattauftrag" as werkstattauftrag <<aggregate>> {
+
+    }
+
+    werkstattplan --> werkstattauftrag
+
+}
+....
+
+Enthaltene Blackbox Bausteine::
+
+[cols="1,2" options="header"]
+|===
+|Aggregate|Beschreibung
+|Werkstattplan|Planung der Werkstattauslastung unter Berücksichtigung der Verfügbarkeit und Kompetenz
+|Werkstattauftrag|Rechtlich bindende Vereinbarung zur Durchführung von Dienstleistungen (Services) am Fahrzeug
+|===
+
+=== Wichtige Schnittstellen
+
+[cols="1,1,2" options="header"]
+|===
+|Aggregate|Eingehend|Aussgehend
+|Werkstattplan|Werkstattauftrag planen, Backend for Frontend REST API|
+|Werkstattauftrag|Originalteil verfügbar, Backend for Frontend REST API|Werkstattauftrag planen
+|===
+
+=== Whitebox Bounded Context Werkstattservice
+
+[plantuml,target=bs-ebene2_1,format=png]
+....
+
+package "Werkstattservice" as werkstattservice <<bounded context>> {
+
+    package "Werkstattservice"" as werkstattserviceAggregate <<aggregate>> {
+
+    }
+
+    package "WerkstattserviceGruppe" as werkstattserviceGruppe <<aggregate>> {
+
+    }
+
+    werkstattserviceAggregate --> werkstattserviceGruppe
+
+}
+....
+
+Enthaltene Blackbox Bausteine::
+
+[cols="1,2" options="header"]
+|===
+|Aggregate|Beschreibung
+|Werkstattservice|  Ein Werkstattservice beschreibt
+eine Dienstleistung am Fahrzeug. Dies beinhaltet Arbeitszeit,
+Originalteile und sonstigen Materialverbrauch.
+|WerkstattserviceGruppe|  Ein WerkstattserviceGruppe gruppiert
+Werkstattservices gleicher Art und beschreibt für die Gruppe den Kostensatz für ein
+Arbeitswert. Gruppen sind Karroserie, Mechanik und Elektronik.
+|===
+
+Wichtige Schnittstellen::
+Bisher keine
+
+=== Whitebox Aggregate Werkstattplan
+
+[plantuml,target=bs-ebene4-1,format=png]
+....
+
+package "Werkstattplan" as wplan <<aggregate>> {
+
+    class WerkstattplanService <<service>>
+    class WerkstattplanRepository <<repository>>
+
+    package "domain.model" as model {
+        class "Werkstattplan" as theAggregateRoot <<aggregate root>>
+        class "Werkstattplanstatus" as status <<value object>>>
+        class "Tagesplan" as tagesplan <<entity>>
+        class "Tagesplanstatus" as tagesplanstatus <<value object>>
+        class "Werkstatttermin" as termin <<entity>>
+        class "Start" as start <<value object>>
+        class "Ende" as ende <<value object>>
+        class "Bearbeiter" as bearbeiter <<value object>>
+        class "WerkstattauftragRef" as werkstattauftragRef <<value object>>
+        theAggregateRoot --> status
+        theAggregateRoot --> tagesplan
+        tagesplan --> tagesplanstatus
+        tagesplan --> termin
+        termin --> start
+        termin --> ende
+        termin --> bearbeiter
+        termin --> werkstattauftragRef
+    }
+
+    WerkstattplanService --> theAggregateRoot
+    WerkstattplanService --> WerkstattplanRepository
+}
+....
+
+=== Whitebox Aggregate Werkstattauftrag
+
+[plantuml,target=bs-ebene4_2,format=png]
+....
+
+package "Werkstattauftrag" as werkstattauftragModul <<aggregate>> {
+
+    class WerkstattauftragService
+    class WerkstattauftragRepository
+
+    package "domain.model" as domainModel {
+        class Werkstattauftrag <<aggregate root>>
+        class Fahrzeugkennzeichen <<value object>>
+        class Bearbeiter <<value object>>
+        class Werkstattauftragstatus <<value object>>
+        class Auftragsposition <<entity>>
+        class Werkstattservice <<entity>>
+        class Material <<value object>>
+        class MaterialRef <<value object>>
+
+        Werkstattauftrag --> Fahrzeugkennzeichen
+        Werkstattauftrag --> Bearbeiter
+        Werkstattauftrag --> Werkstattauftragstatus
+        Werkstattauftrag --> Auftragsposition
+        Auftragsposition --> Werkstattservice
+        Werkstattservice --> Material
+        Material --> MaterialRef
+
+    }
+
+    WerkstattauftragService --> WerkstattauftragRepository
+    WerkstattauftragService --> Werkstattauftrag
+}
+....
+
+=== Whitebox Aggregate Werkstattservice
+
+[plantuml,target=bs-ebene4_3,format=png]
+....
+
+package "Werkstattservice" as werkstattserviceModul <<aggregate>> {
+
+    class WerkstattserviceService <<service>>
+    class WerkstattserviceRepository <<repository>>
+
+    package "domain.model" as domainModel  {
+        class Werkstattservice <<aggregate root>>
+        class Bezeichnung <<value object>>
+        class WerkstattserviceKennung <<value object>>
+        class WerkstattserviceGruppeRef <<value object>>
+        class Material <<value object>>
+        class Materialpreis <<value object>>
+        class Menge <<value object>>
+        class Arbeitswert <<value object>>
+        class MaterialRef <<value object>>
+
+        Werkstattservice --> Bezeichnung
+        Werkstattservice --> WerkstattserviceKennung
+        Werkstattservice --> WerkstattserviceGruppeRef
+        Werkstattservice -->"*" Material
+        Werkstattservice --> Arbeitswert
+        Material --> Menge
+        Material --> Materialpreis
+        Material --> MaterialRef
+    }
+
+    WerkstattserviceService --> WerkstattserviceRepository
+    WerkstattserviceService --> Werkstattservice
+
+}
+....
+
+=== Whitebox Aggregate WerkstattserviceGruppe
+
+[plantuml,target=bs-ebene4_4,format=png]
+....
+
+package "WerkstattserviceGruppe" as werkstattserviceGruppe <<aggregate>> {
+
+    class WerkstattserviceGruppeService <<service>>
+    class WerkstattserviceGruppeRepository <<repository>>
+
+
+    package "domain.model" as domainModel {
+        class WerkstattserviceGruppe <<aggregate root>>
+        class WerkstattserviceGruppeBezeichung <<value object>>
+        class ArbeitswertKostensatz <<entity>>
+        class Kostensatz <<value object>>
+        class Waehrung <<value object>>
+
+        WerkstattserviceGruppe --> WerkstattserviceGruppeBezeichung
+        WerkstattserviceGruppe --> ArbeitswertKostensatz
+        ArbeitswertKostensatz --> Kostensatz
+        ArbeitswertKostensatz --> Waehrung
+    }
+
+    WerkstattserviceGruppeService --> WerkstattserviceGruppe
+    WerkstattserviceGruppeService --> WerkstattserviceGruppeRepository
+
+}
+....

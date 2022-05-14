@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+object "Kunde:in" as kunde {
+    name: Matthias
+    vorname: Musterman
+}
+
+object "Fahrzeug" as fahrzeug {
+    kennzeichen: ES-EL 385
+}
+
+object "Termin" as termin {
+    tag: 01.04.2023
+    start: 7:30 Uhr
+    ende: 14:00 Uhr
+}
+
+object "Auftrag" as auftrag {
+    auftragsnummer: 0815
+}
+
+object "Mitarbeiter:in" as mitarbeiter {
+    mitarbeiterId: 007
+}
+
+object "Dienstleistung" as dienstleistung {
+    bezeichnung: Reifenwechsel
+    kennung: WT-FW-C3PO
+    menge: 4
+}
+
+kunde --> fahrzeug
+termin --> fahrzeug
+termin --> kunde
+auftrag --> fahrzeug
+auftrag --> kunde
+termin --> auftrag
+auftrag --> mitarbeiter
+auftrag -->"*" dienstleistung
+
+@enduml

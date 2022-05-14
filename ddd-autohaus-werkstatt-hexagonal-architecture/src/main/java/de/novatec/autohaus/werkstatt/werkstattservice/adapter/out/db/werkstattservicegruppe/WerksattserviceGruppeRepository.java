@@ -1,0 +1,7 @@
+package de.novatec.autohaus.werkstatt.werkstattservice.adapter.out.db.werkstattservicegruppe;
+
+import de.novatec.autohaus.werkstatt.werkstattservice.application.port.out.werkstattservicegruppe.WerkstattserviceGruppeDbCommand;
+import de.novatec.autohaus.werkstatt.werkstattservice.application.port.out.werkstattservicegruppe.WerkstattserviceGruppeDbQuery;
+
+public class WerksattserviceGruppeRepository implements WerkstattserviceGruppeDbCommand, WerkstattserviceGruppeDbQuery {
+}

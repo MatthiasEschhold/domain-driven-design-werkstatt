@@ -1,0 +1,14 @@
+package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.in;
+
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.WerkstattauftragAuftraggeberAendernCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.WerkstattauftragErstellenCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.WerkstattauftragsstatusAendernCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.model.Werkstattauftrag;
+
+public interface WerkstattauftragCommand {
+    Werkstattauftrag werkstattauftragErstellen(WerkstattauftragErstellenCommand werkstattauftragErstellenCommand);
+
+    Werkstattauftrag auftragsstatusAnendern(WerkstattauftragsstatusAendernCommand werkstattauftragsstatusAendernCommand);
+
+    Werkstattauftrag auftraggeberAendern(WerkstattauftragAuftraggeberAendernCommand werkstattauftragAuftraggeberAendernCommand);
+}

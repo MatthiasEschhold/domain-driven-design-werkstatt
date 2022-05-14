@@ -1,0 +1,15 @@
+ContextMap DDDSampleSk {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+    
+    contains Teilevertrieb
+    contains Fremdteile
+    contains Originalteile
+
+    Teilevertrieb [SK]<->[SK] Originalteile
+    Teilevertrieb [SK]<->[SK] Fremdteile
+}
+
+BoundedContext Teilevertrieb
+BoundedContext Fremdteile
+BoundedContext Originalteile

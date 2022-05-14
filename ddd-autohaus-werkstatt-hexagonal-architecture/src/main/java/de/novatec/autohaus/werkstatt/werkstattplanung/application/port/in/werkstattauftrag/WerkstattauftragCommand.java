@@ -1,0 +1,16 @@
+package de.novatec.autohaus.werkstatt.werkstattplanung.application.port.in.werkstattauftrag;
+
+import de.novatec.autohaus.werkstatt.werkstattplanung.application.domain.werkstattauftrag.command.WerkstattauftragAuftraggeberAendernCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.application.domain.werkstattauftrag.command.WerkstattauftragErstellenCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.application.domain.werkstattauftrag.command.WerkstattauftragsstatusAendernCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.application.domain.werkstattauftrag.model.Werkstattauftrag;
+import de.novatec.autohaus.werkstatt.jmolecules.InputPort;
+
+@InputPort
+public interface WerkstattauftragCommand {
+    Werkstattauftrag werkstattauftragErstellen(WerkstattauftragErstellenCommand werkstattauftragErstellenCommand);
+
+    Werkstattauftrag auftragsstatusAnendern(WerkstattauftragsstatusAendernCommand werkstattauftragsstatusAendernCommand);
+
+    Werkstattauftrag auftraggeberAendern(WerkstattauftragAuftraggeberAendernCommand werkstattauftragAuftraggeberAendernCommand);
+}

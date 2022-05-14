@@ -1,0 +1,94 @@
+[[section-introduction-and-goals]]
+==	Einführung und Ziele
+
+Die implementierte Softwarearchitektur des Demosystem für die
+Subdomäne Werkstatt hat das Ziel, die in der Schulung vermittelte
+Konzepte von Domain-driven Design zu verdeutlichen.
+
+Der Schwerpunkt der Demo liegt auf:
+
+* der beispielhafte Anwendung der Building Blocks des taktischen Domain-driven Design,
+* im Architekturmuster Hexagonal Architecture sowie der
+* im Architekturmuster Clean Architecture
+
+Die hier vorgestellten Lösungen stellen einen mögliche, praxisnahe und bewährte Wege zur Abbildung dieser
+Architekturmuster Ebene von Paketen und Klassen in der Programmiersprache Java.
+
+Die Demo hat nicht den Anspruch "lauffähig" zu sein. Momentan sind die wichtigsten Konzepte auf struktureller Ebene
+tiefgehend aabgebildet. Ein stetiger Ausbau der Demo ist angedacht.
+
+=== Aufgabenstellung
+
+Die Demo zeigt die Subdomäne Werkstatt mit den Bounded Contexts Werkstattplanung und Werkstattservice.
+Der Bounded Context Werkstattplanung enthält die Aggregates Werkstattplan und Werkstattauftrag.
+Der Bounded Context Werkstattservice enthält die Aggregates Werkstattservice und WerkstattserviceGruppe.
+
+Die Demo-Basisversion bildet anhand dieser Beispiele,
+
+* die Verwendung von Bounded Contexts und Aggregates zur Modularisierung von Softwaresystemen
+* die Anwendung des taktischen Domain-driven Design mit starken Fokus auf Aggregate, Entity und Value Objects
+* der Umgang mit den Herausforderungen Eventual Consistency und Causal Consistency.
+
+[.lead]
+Die Demo realisiert in der Variante Hexagonal Architecture
+
+* ein Domämenmodell mit Daten und Verhalten (rich domain model),
+* einen Application Service für das Handling von Eventual und Causal Consistency sowie
+* für die Implementierung von Input Ports bzw. die Nutzung von Output Ports und
+* ein native implementiertes Mapping gemäß der Two-Way Mapping Strategie (Bounded Context Werkstattplanung) ab
+* (https:/www.google.de[Package Hexagonal Architecture Bounded Context Werkstattplanung])
+
+[.lead]
+In der Variante Clean Architecture wird
+
+* ein Domämenmodell mit Daten und Verhalten (rich domain model),
+* ein (Domain)Services für die Implementierung eingehenden Use Cases und für die Nutzung von ausgehenden Use Cases,
+* einen Event-getriebenen Ansatz zum Handling von Eventual und Causal Consistency sowie
+* ein native implementiertes Mapping gemäß der Two-Way Mapping Strategie (Bounded Context Werkstattplanung) ab
+* https:/www.google.de[Package Clean Architecture Bounded Context Werkstattplanung]
+
+=== Qualitätsziele
+
+[cols="1,2" options="header"]
+|===
+|Qualitätsziel |Beschreibung
+
+|Unterstützung die:der Teilnehmer:in beim Erlenen der Konzepte des taktischen Domain-driven Design
+|Der Teilnehmer wird durch konkrete Beispiele aller relevante Aspekte dabei unterstützt, die DD Buildung Blocks zu
+erlernen und im eigenen Projektkontext anzuwenden.
+
+|Konzeptionelle Integrität verstehen und anwenden
+|Es gibt nicht den einen Weg! Alternative Ansätze zu verstehen und voneinander abzugrenzen,
+sichert konzeptionelle Integrität. Begriffe, Lösungsstrategien und Architekturkonzepte sind oft schwammig definiert
+Application Service vs. Domain Service, Rich vs. Anemic Domain Model sind Beispiel hierfür.
+In einer Anwendungsarchitektur ist ein klarer Weg zu definieren und gleichartig zu reaisieren-.
+Durch die verschiedenen Varianten, kann der:die Teilnehmer:in verschiedene Ansätze vergleichen und bewerten.
+
+
+|===
+
+=== Ein Wort zum Stand und zu weiteren Plänen
+
+Der Plan ist die Demo sukzessive auszubauen.
+Konkret bedeutet dies:
+
+* Lauffähigkeit des Bounded Context Werkstattplan herstellen
+* Fortgeschrittene Konzepte der Invariantenprüfung anwenden und beschreiben darstellen
+* Fortgeschrittene Anwendungsfälle für Domain bzw. Application Services darstellen
+* Detaillierte Beschreibung Klassen-Stereotypen der Hexagonal und Clean Architecture
+
+=== Stakeholder
+
+[cols="1,1,2" options="header"]
+|===
+|Rolle |Kontakt |Erwartungshaltung
+|Teilnehmer der DDD Schulung|  |Vertiefung der Prinzipien und
+Muster von Domain-driven Design anhand der fachlichen Schulungbeispiele.
+|Trainer der DDD Schulung | mailto:matthias.eschhold@novatec-gmbh.de[Matthias Eschhold] |
+|===
+
+=== Weiterführende Quellen, Repositories, Artikel, Blogs oder Videos
+
+* https://github.com/MatthiasEschhold/clean-architecture-and-flexibility-patterns[Artikelserie Flexibile Anwendungsarchitektur mit der Clean Architecture]
+* https://github.com/lwluc/camunda-ddd-and-clean-architecture[Camunda DDD und Clean Architecture]
+* https://github.com/domain-primitives/domain-primitives-java[Domain Primitives Java]

@@ -1,0 +1,40 @@
+@startuml
+  component Werkstattverwaltung <<system>>
+  database "RDBMS" as db1
+  database "NoSQL" as db2
+  database "CACHE" as db3
+  file "LOG" as log
+
+  node FahrzeugstammdatenSystem
+  interface "GetFahrzeug" as i
+  i - FahrzeugstammdatenSystem
+
+  actor "Kund:in" as Kunde
+  actor "Fachadministrator:in" as SachbearbeiterAdmin
+  actor "Sachbearbeiter:in" as Sachbearbeiter
+
+  Werkstattverwaltung --> i : https (tls), jwt token
+  Kunde --> Werkstattverwaltung : https basic auth
+  SachbearbeiterAdmin --> Werkstattverwaltung : https basic auth
+  Sachbearbeiter --> Werkstattverwaltung : https basic auth
+  Werkstattverwaltung --> db1
+  Werkstattverwaltung --> db2
+  Werkstattverwaltung --> db3
+  Werkstattverwaltung --> log
+
+  note left of SachbearbeiterAdmin: Autorisierung, Rollen und Rechte
+  note top of i: Verschlüsselung, Authentifizierung, Security Token, API Key
+  note left of db1: JPA vs. JDBC
+  note bottom of db2: Persistenzmodell (Relational, Dokumenten-orientiert, Key Value)
+  note bottom of log: Logging Library, Tooling z.B. ELK, Filebeat
+
+  note right of Sachbearbeiter: Authentifizierung
+
+@enduml
+
+
+
+
+
+
+

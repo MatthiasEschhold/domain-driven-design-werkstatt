@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+
+actor "Kund:in" as kunde
+actor "Werkstattmitarbeiter:in" as ma
+actor "Servicenberater:in" as sb
+actor "Werkstattmeister:in" as wme
+
+rectangle Werkstatt {
+    usecase "Auftrag erstellen" as uc1
+    usecase "Termin vereinbaren" as uc2
+    usecase "Auftrag durchführen" as uc3
+    usecase "Auftrag abrechnen" as uc4
+    usecase "Auftrag bezahlen" as uc5
+    usecase "Dienstleistung anlegen" as uc6
+    usecase "Dienstleistung pflegen" as uc7
+}
+
+ma --> uc3
+sb --> uc1
+sb --> uc4
+kunde --> uc5
+ma --> uc2
+kunde --> uc2
+wme --> uc1
+wme --> uc6
+wme --> uc7
+
+@enduml

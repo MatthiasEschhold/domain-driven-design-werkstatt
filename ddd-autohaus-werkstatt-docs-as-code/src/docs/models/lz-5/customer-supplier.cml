@@ -1,0 +1,16 @@
+ContextMap DDDSampleMap {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+    
+    contains Lagermanagement
+    contains Fremdteile
+    contains Originalteile
+
+
+    Originalteile [C]<-[S] Lagermanagement
+    Fremdteile [C]<-[S] Lagermanagement
+}
+
+BoundedContext Lagermanagement
+BoundedContext Fremdteile
+BoundedContext Originalteile

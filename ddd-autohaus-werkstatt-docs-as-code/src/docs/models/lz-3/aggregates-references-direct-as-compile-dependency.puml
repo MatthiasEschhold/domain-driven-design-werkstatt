@@ -1,0 +1,96 @@
+
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Subdomäne Werkstatt" as sdWerkstatt {
+
+    package "Werkstattservice" as bcWerkstattservice {
+        package "Werkstattservice" as aggWerkstattservice {
+            class Werkstattservice <<aggregate root>>
+            class Bezeichnung <<value object>>
+            class WerkstattserviceKennung <<value object>>
+            class Material <<value object>>
+            class Menge <<value object>>
+            class Arbeitswert <<value object>>
+
+            Werkstattservice --> Bezeichnung
+            Werkstattservice --> WerkstattserviceKennung
+            Werkstattservice --> Material
+            Material --> Menge
+            Werkstattservice --> Arbeitswert
+
+        }
+
+         package "WerkstattserviceGruppe" as aggWerkstattserviceGruppe {
+            class WerkstattserviceGruppe <<aggregate root>>
+            class WerkstattserviceGruppeBezeichung <<value object>>
+            class ArbeitswertKostensatz <<entity>>
+            class Kostensatz <<value object>>
+            class Waehrung <<value object>>
+
+            WerkstattserviceGruppe --> WerkstattserviceGruppeBezeichung
+            WerkstattserviceGruppe --> ArbeitswertKostensatz
+            ArbeitswertKostensatz --> Kostensatz
+            ArbeitswertKostensatz --> Waehrung
+        }
+
+        Werkstattservice --> WerkstattserviceGruppe
+    }
+
+    package "Werkstattplanung" as bcWplan {
+        package "Werkstattplan" as aggWplan {
+            class "Werkstattplan" as theAggregateRoot <<aggregate root>>
+            class "Werkstattplanstatus" as status <<value object>>>
+            class "Tagesplan" as tagesplan <<entity>>
+            class "Tagesplanstatus" as tagesplanstatus <<value object>>
+            class "Werkstatttermin" as termin <<entity>>
+            class "Start" as start <<value object>>
+            class "Ende" as ende <<value object>>
+            class "Bearbeiter" as bearbeiter <<value object>>
+
+            theAggregateRoot --> status
+            theAggregateRoot --> tagesplan
+            tagesplan --> tagesplanstatus
+            tagesplan --> termin
+            termin --> start
+            termin --> ende
+            termin --> bearbeiter
+        }
+
+        package "Werkstattauftrag" as wauftrag {
+
+            class Werkstattauftrag <<aggregate root>>
+            class Fahrzeugkennzeichen <<value object>>
+            class Bearbeiter <<value object>>
+            class Werkstattauftragstatus <<value object>>
+            class Auftragsposition <<entity>>
+
+            Werkstattauftrag --> Fahrzeugkennzeichen
+            Werkstattauftrag --> Bearbeiter
+            Werkstattauftrag --> Werkstattauftragstatus
+            Werkstattauftrag --> Auftragsposition
+        }
+    }
+
+    termin --> Werkstattauftrag
+
+}
+
+package "Bounded Context Originalteile" as bcteile {
+
+    package "Originalteil" as eteil {
+        class "Originalteil" as OriginalteilAggregate <<aggregate>>
+        class "Originalteilenummer" as OriginalteileNummer <<value object>>
+        class "Herstellerkennzeichen" as herstellerkennzeichen <<value object>>
+        class "Preis"  as preis <<value object>>
+        OriginalteilAggregate --> prreis
+        OriginalteilAggregate --> OriginalteileNummer
+        OriginalteilAggregate --> herstellerkennzeichen
+    }
+
+}
+
+Material --> OriginalteilAggregate
+Auftragsposition --> Werkstattservice
+
+@enduml

@@ -1,0 +1,14 @@
+package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.in;
+
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.AuftragspositionAktualisierenCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.AuftragspositionHinzufuegenCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.command.AuftragspositionLoeschenCommand;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.model.Werkstattauftrag;
+
+public interface AuftragspositionCommand {
+    Werkstattauftrag auftragspositionAktualisieren(AuftragspositionAktualisierenCommand auftragspositionAktualisierenCommand);
+
+    Werkstattauftrag auftragspositionHinzufuegen(AuftragspositionHinzufuegenCommand auftragspositionHinzufuegenCommand);
+
+    Werkstattauftrag auftragspositionLoeschen(AuftragspositionLoeschenCommand auftragspositionLoeschenCommand);
+}

@@ -1,0 +1,12 @@
+@startuml
+component Werkstattverwaltung <<system>>
+
+node FahrzeugstammdatenSystem
+actor "Kund:in" as Kunde
+actor "Sachbearbeiter:in" as Sachbearbeiter
+
+Werkstattverwaltung --> FahrzeugstammdatenSystem : http
+Kunde --> Werkstattverwaltung : http
+Sachbearbeiter --> Werkstattverwaltung : http
+
+@enduml
