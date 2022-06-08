@@ -1,5 +1,6 @@
 package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.in.web;
 
+import de.novatec.autohaus.werkstatt.jmolecules.Mapper;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.in.web.resource.BearbeiterResource;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.in.web.resource.TagesplanResource;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.in.web.resource.WerkstattplanResource;
@@ -11,7 +12,6 @@ import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.tagesplan.Tagesplan;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.werkstattplan.Werkstattplan;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.werkstatttermin.*;
-import de.novatec.autohaus.werkstatt.jmolecules.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;

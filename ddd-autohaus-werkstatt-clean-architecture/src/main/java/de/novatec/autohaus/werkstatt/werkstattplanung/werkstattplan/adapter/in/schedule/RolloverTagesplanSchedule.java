@@ -1,7 +1,7 @@
 package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.in.schedule;
 
-import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.usecase.in.RolloverTagesplan;
 import de.novatec.autohaus.werkstatt.jmolecules.InputAdapter;
+import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.usecase.in.RolloverTagesplan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,9 @@
 package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.adapter.out.bearbeiter;
 
+import de.novatec.autohaus.werkstatt.jmolecules.OutputAdapter;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.bearbeiter.Bearbeiter;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.bearbeiter.BearbeiterId;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.usecase.out.BearbeiterQuery;
-import de.novatec.autohaus.werkstatt.jmolecules.OutputAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

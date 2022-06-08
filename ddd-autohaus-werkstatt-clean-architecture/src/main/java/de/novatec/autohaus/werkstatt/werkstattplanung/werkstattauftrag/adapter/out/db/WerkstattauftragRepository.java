@@ -10,7 +10,6 @@ import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.o
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattplan.domain.model.bearbeiter.BearbeiterId;
 import org.jmolecules.ddd.annotation.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

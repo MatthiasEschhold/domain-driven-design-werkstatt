@@ -1,5 +1,6 @@
 package de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.adapter.in.web;
 
+import de.novatec.autohaus.werkstatt.jmolecules.InputAdapter;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.adapter.in.web.resource.AuftragspositionResource;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.adapter.in.web.resource.WerkstattauftragCommandResource;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.adapter.in.web.resource.WerkstattauftragResource;
@@ -16,7 +17,6 @@ import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.domain.mo
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.in.AktuellenBearbeiterAendern;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.in.WerkstattauftragCommand;
 import de.novatec.autohaus.werkstatt.werkstattplanung.werkstattauftrag.usecase.in.WerkstattauftragQuery;
-import de.novatec.autohaus.werkstatt.jmolecules.InputAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
